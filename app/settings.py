@@ -7,7 +7,7 @@ env = environ.Env() #define
 environ.Env.read_env() #read the env file
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = env('SECRET KEY')
+SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 ALLOWED_HOSTS = ['*']
 
