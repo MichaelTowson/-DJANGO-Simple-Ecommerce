@@ -10,6 +10,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 ALLOWED_HOSTS = ['*']
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+NOTIFY_EMAIL = env('NOTIFY_EMAIL')
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #During development, emails will be sent to console.
 
@@ -22,6 +24,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    #Additions I have made to the default application apps
+    'crispy_forms', #template pack for this app is specified below in settings.
     'core'
 ]
 
@@ -83,6 +87,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
