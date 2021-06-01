@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     
     #Additions I have made to the default application apps
     'crispy_forms', #template pack for this app is specified below in settings.
+    'cart',
     'core'
 ]
 
