@@ -1,5 +1,8 @@
-from django.db import models
 from django.contrib.auth import get_user_model
+from django.db import models
+from django.db.models.signals import pre_save
+from django.utils.text import slugify
+
 
 User = get_user_model()
 
@@ -26,6 +29,7 @@ class Address(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=150)
     slug = models.SlugField()
+    image = models.ImageField(upload_to='product_images')
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
