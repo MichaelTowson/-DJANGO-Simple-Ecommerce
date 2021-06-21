@@ -52,7 +52,8 @@ class OrderItem(models.Model):
         return f"{self.quantity} x {self.product.title}"
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, blank=True, null=True, on_delete=models.CASCADE) #blank and null need to be TRUE because a user won't always be logged in.
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_Date = models.DateTimeField(blank=True, null=True) #value gets set after order has been paid for.
     ordered = models.BooleanField(default=False)
