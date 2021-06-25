@@ -34,7 +34,6 @@ class ProductDetailView(generic.FormView):
             size=form.cleaned_data['size'],
         )
         
-        
         if item_filter.exists():
             item = item_filter.first()
             item.quantity = int(form.cleaned_data['quantity'])
@@ -52,4 +51,12 @@ class ProductDetailView(generic.FormView):
         #Pass in context from the product because FormView does not automatically receive that information, such as the photo of the product.
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         context['product'] = self.get_object()
+        return context
+
+class CartView(generic.TemplateView):
+    template_name = "cart/cart.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super(CartView, self).get_context_data(**kwargs)
+        context["order"] = get_or_set_order_session(self.request)
         return context

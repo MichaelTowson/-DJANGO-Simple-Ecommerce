@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<!-- Breadcrumbs Bar -->
+<div class ="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0">
+                <a href="{% url 'home' %}">Home</a>
+                <span class="mx-2 mb-0">/</span>
+                <strong class="text-black">{{ product.title }}</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="site-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="site-blocks-table">
+                
+                <!-- Table for Products in Cart -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.items.all %}
+                            <tr>
+                                <!-- Image Column -->
+                                <td class = "product-thumbnail">
+                                    <img src="{{ item.product.image.url }}" class="img-fluid">
+                                </td>
+
+                                <!-- Product Column -->
+                                <td class = "product-name">
+                                    <h2 class="h5 text-black">{{ item.product.title }}</h2>
+                                    <small>Size: {{ item.size.name }}</small>
+                                    <small>Size: {{ item.colour.name }}</small>
+                                </td>
+
+                                <!-- Price Column -->
+                                <td>0</td>
+                                
+                                <td>
+                                <!-- Quantity Column -->
+                                    <div class="input-group mb-3" style="max-width: 120px;">
+                                        <div class="input-group-prepend">
+                                            <a href="#" class="btn btn-outline-primary">
+                                                -
+                                            </a>
+                                        </div>
+                                        <input type="text" class="form-control text-center" value="{{ item.quantity }}">
+                                        <div class="input-group-append">
+                                            <a href="#" class="btn btn-outline-primary">
+                                                +
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                <!-- Total Column -->
+                                <td>
+                                    $0
+                                </td>
+                                
+                                <!-- Actions Column -->
+                                <td>
+                                    <a href="#" class="btn btn-primary btn-sm">X</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-black">{{ product.title }}</h2>
+                <p class="mb-0"> {{product.description }}</p>
+                <form method='POST'>
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type= 'submit' class="btn btn-sm btn-primary buy-now">Add to cart</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
