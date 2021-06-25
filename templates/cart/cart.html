@@ -18,11 +18,15 @@
 
 <!-- Content -->
 <div class="site-section">
+
+
     <div class="container">
+
+        <!-- ROW: List of products in cart -->
         <div class="row mb-5">
             <div class="site-blocks-table">
                 
-                <!-- Table for Products in Cart -->
+                <!-- TABLE: Products in Cart -->
                 <table>
                     <thead>
                         <tr>
@@ -37,23 +41,24 @@
                     <tbody>
                         {% for item in order.items.all %}
                             <tr>
-                                <!-- Image Column -->
+                                <!-- TABLE COLUMN: IMAGE -->
                                 <td class = "product-thumbnail">
                                     <img src="{{ item.product.image.url }}" class="img-fluid">
                                 </td>
 
-                                <!-- Product Column -->
+                                <!-- TABLE COLUMN: PRODUCTS -->
                                 <td class = "product-name">
                                     <h2 class="h5 text-black">{{ item.product.title }}</h2>
                                     <small>Size: {{ item.size.name }}</small>
                                     <small>Size: {{ item.colour.name }}</small>
                                 </td>
 
-                                <!-- Price Column -->
+                                <!-- TABLE COLUMN: PRICE -->
                                 <td>${{ item.product.get_price }}</td>
                                 
                                 <td>
-                                <!-- Quantity Column -->
+                                
+                                <!-- TABLE COLUMN: QUANTITY -->
                                     <div class="input-group mb-3" style="max-width: 120px;">
                                         
                                         <!-- "Subtract quantity" button -->
@@ -72,12 +77,12 @@
                                         </div>
                                     </div>
 
-                                <!-- Total Column -->
+                                <!-- TABLE COLUMN: PRICE -->
                                 <td>
                                     ${{ item.get_total_item_price }}
                                 </td>
                                 
-                                <!-- Actions Column -->
+                                <!-- TABLE COLUMN: ACTIONS -->
                                 <td>
                                     <a href="{% url 'cart:remove-from-cart' item.id %}" class="btn btn-primary btn-sm">X</a>
                                 </td>
@@ -103,7 +108,43 @@
                 </form>
             </div>
         </div>
+    
+        <!-- ROW: If Cart has items, display "continue shopping" and CART TOTAL -->
+        {% if order.items.count > 0 %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row mb-5">
+                    <div class="col-md-12">
+                        <a class="btn btn-outline-primary btn-sm btn-block" 
+                        href="{% url 'cart:product-list' %}">Continue shopping</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUMN: Total Price, Subtotal -->
+            <div class="col-md-6 pl-5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12 text-right border-bottom mb-5">
+                                <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <span class="text-black">Subtotal</span>
+                            </div>
+                            <div class="col-md-6">
+                            
+                            </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    
     </div>
 </div>
-
 {% endblock content %}
