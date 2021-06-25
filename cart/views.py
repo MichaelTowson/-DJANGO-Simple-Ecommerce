@@ -16,7 +16,7 @@ class ProductDetailView(generic.FormView):
         return get_object_or_404(Product, slug=self.kwargs["slug"]) #kwargs = keyword arguments
     
     def get_success_url(self):
-        return reverse("home") #TODO eventually redirect to the cart.
+        return reverse("cart:summary") #TODO eventually redirect to the cart.
     
     def get_form_kwargs(self):
         kwargs = super(ProductDetailView, self).get_form_kwargs()
@@ -77,4 +77,10 @@ class DecreaseQuantityView(generic.View):
         else:
             order_item.quantity -= 1
             order_item.save()
+        return redirect("cart:summary")
+
+class RemoveFromCartView(generic.View):
+    def get(self, request, *args, **kwargs):
+        order_item = get_object_or_404(OrderItem, id=kwargs['pk'])
+        order_item.delete()
         return redirect("cart:summary")
