@@ -55,14 +55,18 @@
                                 <td>
                                 <!-- Quantity Column -->
                                     <div class="input-group mb-3" style="max-width: 120px;">
+                                        
+                                        <!-- "Subtract quantity" button -->
                                         <div class="input-group-prepend">
-                                            <a href="#" class="btn btn-outline-primary">
+                                            <a href="{% url 'cart:decrease-quantity' item.id %}" class="btn btn-outline-primary">
                                                 -
                                             </a>
                                         </div>
                                         <input type="text" class="form-control text-center" value="{{ item.quantity }}">
+                                        
+                                        <!-- "Add quantity" button -->
                                         <div class="input-group-append">
-                                            <a href="#" class="btn btn-outline-primary">
+                                            <a href="{% url 'cart:increase-quantity' item.id %}" class="btn btn-outline-primary">
                                                 +
                                             </a>
                                         </div>
@@ -77,6 +81,11 @@
                                 <td>
                                     <a href="#" class="btn btn-primary btn-sm">X</a>
                                 </td>
+                            </tr>
+
+                            {% empty %}
+                            <tr>
+                                <td>
                             </tr>
                         {% endfor %}
 
