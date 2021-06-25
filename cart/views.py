@@ -1,6 +1,6 @@
 from django.views import generic
 from .models import Product, OrderItem
-from .forms import AddToCartForm
+from .forms import AddToCartForm, AddressForm
 from .utils import get_or_set_order_session
 from django.shortcuts import get_object_or_404, reverse, redirect
 
@@ -36,7 +36,7 @@ class ProductDetailView(generic.FormView):
         
         if item_filter.exists():
             item = item_filter.first()
-            item.quantity = int(form.cleaned_data['quantity'])
+            item.quantity += int(form.cleaned_data['quantity'])
             item.save()
         
         else:
@@ -84,3 +84,8 @@ class RemoveFromCartView(generic.View):
         order_item = get_object_or_404(OrderItem, id=kwargs['pk'])
         order_item.delete()
         return redirect("cart:summary")
+
+class CheckoutView(generic.FormView):
+    template_engine = 'cart/checkout.html'
+    form_class = AddressForm
+    
