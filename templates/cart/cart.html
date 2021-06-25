@@ -50,7 +50,7 @@
                                 </td>
 
                                 <!-- Price Column -->
-                                <td>0</td>
+                                <td>${{ item.product.get_price }}</td>
                                 
                                 <td>
                                 <!-- Quantity Column -->
@@ -70,7 +70,7 @@
 
                                 <!-- Total Column -->
                                 <td>
-                                    $0
+                                    ${{ item.get_total_item_price }}
                                 </td>
                                 
                                 <!-- Actions Column -->

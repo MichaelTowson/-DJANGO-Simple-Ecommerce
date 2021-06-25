@@ -33,7 +33,6 @@ class ColourVariation(models.Model):
     def __str__(self):
         return self.name
 
-
 class SizeVariation(models.Model):
     name = models.CharField(max_length=50)
 
@@ -45,7 +44,7 @@ class Product(models.Model):
     slug = models.SlugField()
     image = models.ImageField(upload_to='product_images')
     description = models.TextField()
-    price = models.IntegerField()       # Set prices for products in cents, which lets us use an integer instead of a float.
+    price = models.IntegerField(default=0)       # Set prices for products in cents, which lets us use an integer instead of a float.
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=False)
@@ -73,6 +72,12 @@ class OrderItem(models.Model):
     def __str__(self):
         return f"{self.quantity} x {self.product.title}"
     
+    def get_raw_total_item_price(self):
+        return self.quantity * self.product.price
+    
+    def get_total_item_price(self):
+        price = self.get_raw_total_item_price()
+        return "{:.2f}".format(price/100)
 
 class Order(models.Model):
     user = models.ForeignKey(
