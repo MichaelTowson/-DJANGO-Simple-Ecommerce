@@ -85,7 +85,8 @@
 
                             {% empty %}
                             <tr>
-                                <td>
+                                <td colSpan = '6' >
+                                    There are no items in your cart. <a href="{% url 'cart:product-list' %}">Continue shopping</a>
                             </tr>
                         {% endfor %}
 

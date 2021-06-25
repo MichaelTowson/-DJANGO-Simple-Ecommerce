@@ -1,8 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name = 'cart'
-
+app_name = 'cart' #urls will begin with cart/
 urlpatterns = [
     
     #Render Views
