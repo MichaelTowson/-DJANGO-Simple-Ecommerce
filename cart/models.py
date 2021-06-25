@@ -45,6 +45,7 @@ class Product(models.Model):
     slug = models.SlugField()
     image = models.ImageField(upload_to='product_images')
     description = models.TextField()
+    price = models.IntegerField()       # Set prices for products in cents, which lets us use an integer instead of a float.
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=False)
@@ -56,6 +57,9 @@ class Product(models.Model):
     
     def get_absolute_url(self):
         return reverse("cart:product-detail", kwargs={'slug': self.slug})
+    
+    def get_price(self):
+        return "{:.2f}".format(self.price/100) #Converts price integer into a string in $1.00 format (rounded to two decimal places)
 
 #This model represents the item that someone has in their cart.
 class OrderItem(models.Model):
@@ -68,6 +72,7 @@ class OrderItem(models.Model):
     
     def __str__(self):
         return f"{self.quantity} x {self.product.title}"
+    
 
 class Order(models.Model):
     user = models.ForeignKey(
