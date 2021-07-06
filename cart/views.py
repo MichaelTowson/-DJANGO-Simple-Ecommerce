@@ -86,6 +86,6 @@ class RemoveFromCartView(generic.View):
         return redirect("cart:summary")
 
 class CheckoutView(generic.FormView):
-    template_engine = 'cart/checkout.html'
+    template_name = 'cart/checkout.html'
     form_class = AddressForm
     
