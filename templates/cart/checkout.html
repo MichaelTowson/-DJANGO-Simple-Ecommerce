@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -12,6 +13,84 @@
                 <strong class="text-black">Checkout{{ product.title }}</strong>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+            
+        {% if not request.user.is_authenticated %}
+            <div class="row mb-5">
+                <div class="col-md-12">
+                    <div class="border p-4 rounded" role="alert">
+                    You are nearly finished with your order.
+                    To finalize your order, please <a>Login</a> or <a>Sign up</a>.
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria=valuemax="0" aria-valuemax="100">90% complete
+            </div>
+        
+        {% else %}
+            <div class="row mb-5">
+
+                <div class="col-md-6 mb-5 mb-md-0">
+                    <form method="POST">
+                    {% csrf_token %}
+                        <h2 class="h3 mb-3 text-black text-center">Billing Details</h2>
+                        <hr />
+                        <div class="p-2 p-lg-2">
+                            {{ form|crispy }}
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg py-3 btn-block">
+                                Proceed to payment
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                    
+                <div class="col-md-6">
+                    <div class="row mb-5">
+                        <div class="col-md-12">
+                            <h2 class="h3 mb-3 text-black text-center">Your Order</h2>
+                            <hr>
+                            <div class="p-3 p-lg-5">
+                                <!-- TABLE: Products in Cart -->
+                                <table class="table site-block-order-table mb-5">
+                                    <thead>
+                                        <th>Product</th>
+                                        <th>Total</th>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in order.items.all %}
+                                            <tr>
+                                                <td>
+                                                    {{ item.product.title }} - {{ item.size.name }}, {{ item.colour.name }}
+                                                    <strong class="mx-2">x</strong> {{ item.quantity }}
+                                                </td>
+                                                <td>
+                                                    ${{ item.get_total_item_price }}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        <tr>
+                                            <td><strong>Subtotal</strong></td>
+                                            <td><strong class="text-black font-weight-bold">${{ order.get_subtotal }}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Order Total</strong></td>
+                                            <td><strong class="text-black font-weight-bold">${{ order.get_subtotal }}</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+
+        {% endif %}
     </div>
 </div>
 
