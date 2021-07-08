@@ -65,7 +65,7 @@ class AddressForm(forms.Form):
         if selected_shipping_address is None:
             if not data.get('shipping_address_line_1', None):
                 self.add_error('shipping_address_line_1', "Please fill in this field")
-            if not data.get('shipping_address_line 2', None):
+            if not data.get('shipping_address_line_2', None):
                  self.add_error('shipping_address_line_2', "Please fill in this field")
             if not data.get('shipping_city', None):
                  self.add_error('shipping_city', "Please fill in this field")
@@ -76,7 +76,7 @@ class AddressForm(forms.Form):
         if selected_billing_address is None:
             if not data.get('billing_address_line_1', None):
                 self.add_error('billing_address_line_1', "Please fill in this field")
-            if not data.get('billing_address_line 2', None):
+            if not data.get('billing_address_line_2', None):
                  self.add_error('billing_address_line_2', "Please fill in this field")
             if not data.get('billing_city', None):
                  self.add_error('billing_city', "Please fill in this field")
