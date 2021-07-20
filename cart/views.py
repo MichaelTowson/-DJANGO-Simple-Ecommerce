@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.views import generic
 from .models import Product, OrderItem
 from .forms import AddToCartForm, AddressForm
@@ -86,6 +87,8 @@ class RemoveFromCartView(generic.View):
         return redirect("cart:summary")
 
 class CheckoutView(generic.FormView):
-    template_engine = 'cart/checkout.html'
+    template_name = 'cart/checkout.html'
     form_class = AddressForm
-    
+
+class PaymentView(generic.TemplateView):
+    template_name = 'cart/payment.html'
