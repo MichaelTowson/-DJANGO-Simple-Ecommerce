@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.views import generic
 from .models import Product, OrderItem, Address
@@ -91,7 +92,7 @@ class CheckoutView(generic.FormView):
     form_class = AddressForm
 
     def get_success_url(self):
-        return reverse("home")
+        return reverse("cart:payment")
     
     def form_valid(self, form):
         order = get_or_set_order_session(self.request)
@@ -138,4 +139,17 @@ class CheckoutView(generic.FormView):
         context = super(CheckoutView, self).get_context_data(**kwargs)
         context["order"] = get_or_set_order_session(self.request)
         return context
-    
+
+class PaymentView(generic.TemplateView):
+    template_name = 'cart/payment.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(PaymentView, self).get_context_data(**kwargs)
+        context["PAYPAL_CLIENT_ID"] = settings.PAYPAL_CLIENT_ID
+        context['order'] = get_or_set_order_session(self.request)
+        context['CALLBACK_URL'] = reverse("cart:thank-you")
+        
+        return context
+
+class ThankYouView(generic.TemplateView):
+    template_name = 'cart/thanks.html'

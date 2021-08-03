@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class='container'>
+        <div class ="row justify-content-center">
+            <div class = "col-md-8"
+                <div id="paypal-button-container"></div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+
+<script
+    src="https://www.paypal.com/sdk/js?client-id={{ PAYPAL_CLIENT_ID }}">
+</script>
+<script>
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: {{ order.get_total }}
+                    }
+                }]
+            })
+        },
+        onApprove: function(data, actions) {
+            //This function captures the funds from the transaction.
+            return actions.order.capture().then(
+                function(details) {
+                    setTimeout(() => {
+                        window.location.replace("{{ CALLBACK_URL }}")
+
+            }, 3000); //3000 refers to number of milliseconds. In this case, it is three seconds.
+        }
+    }).render('#paypal-button-container');
+</script>
+
+{% endblock scripts %}
