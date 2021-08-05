@@ -1,7 +1,10 @@
+import datetime
+import json
 from django.conf import settings
 from django.contrib import messages
+from django.http import JsonResponse
 from django.views import generic
-from .models import Product, OrderItem, Address
+from .models import Product, OrderItem, Address, Payment
 from .forms import AddToCartForm, AddressForm
 from .utils import get_or_set_order_session
 from django.shortcuts import get_object_or_404, reverse, redirect
@@ -152,3 +155,20 @@ class PaymentView(generic.TemplateView):
 
 class ThankYouView(generic.TemplateView):
     template_name = 'cart/thanks.html'
+
+class ConfirmOrderView(generic.View):
+    def post(self, request, *args, **kwargs):
+        order = get_or_set_order_session(request)
+        body = json.loads(request.body)
+        print(body)
+        payment= Payment.objects.create(
+            order=order,
+            successful = True,
+            raw_response = json.dumps(body),
+            amount=float(body["purchase_units"][0]["amount"]["value"]),
+            payment_method='PayPal'
+        )
+        order.ordered = True
+        order.ordered_date = datetime.date.today()
+        order.save()
+        return JsonResponse({"data": "Success"})
