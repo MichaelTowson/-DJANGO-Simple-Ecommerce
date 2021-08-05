@@ -10,8 +10,8 @@ urlpatterns = [
     path('shop/<slug>/', views.ProductDetailView.as_view(), name='product-detail'),
     path('checkout/', views.CheckoutView.as_view(), name='checkout'),
     path('payment/', views.PaymentView.as_view(), name='payment'),
-    path('thank-you/', views.ThankYouView.as_view(),
-    name='thank-you'),
+    path('thank-you/', views.ThankYouView.as_view(), name='thank-you'),
+    path('confirm-order/', views.ConfirmOrderView.as_view(), name='confirm-order'),
     
     #Cart-Specific Views
     path('increase-quantity/<pk>/', views.IncreaseQuantityView.as_view(), name='increase-quantity'),
