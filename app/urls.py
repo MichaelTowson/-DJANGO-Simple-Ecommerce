@@ -10,7 +10,8 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', views.HomeView.as_view(), name='home'),
     path('contact/', views.ContactView.as_view(), name='contact'),
-    path('cart/', include('cart.urls', namespace='cart'))
+    path('cart/', include('cart.urls', namespace='cart')),
+    path('profile/', views.ProfileView.as_view(), name='profile')
 ]
 
 if settings.DEBUG:

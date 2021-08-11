@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     
     #allauth installed apps
     'django.contrib.sites',
-
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -104,7 +103,15 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
+#ALLAUTH Settings
 SITE_ID = 1
+ACCOUNT_AUTHENTICATION_METHOD='email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+LOGIN_REDIRECT_URL = '/'
+
+#Crispy Forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LANGUAGE_CODE = 'en-us'
