@@ -12,6 +12,7 @@ urlpatterns = [
     path('payment/', views.PaymentView.as_view(), name='payment'),
     path('thank-you/', views.ThankYouView.as_view(), name='thank-you'),
     path('confirm-order/', views.ConfirmOrderView.as_view(), name='confirm-order'),
+    path('orders/<pk>/', views.OrderDetailedView.as_view(), name='order-detail'),
     
     #Cart-Specific Views
     path('increase-quantity/<pk>/', views.IncreaseQuantityView.as_view(), name='increase-quantity'),
