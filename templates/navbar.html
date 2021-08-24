@@ -4,9 +4,9 @@
             <li><a href="/">Home</a></li>
             <li><a href="{% url 'cart:product-list' %}">Shop</a></li>
             <li><a href="{% url 'contact' %}">Contact</a></li>
-            {% if request.user.is_staff %}
-                <li><a href="/">Staff</a></li>
-            {% endif %}
+            {% comment %} {% if request.user.is_staff %} ------ Placeholder for STRETCH FEATURE for allowing staff memmbers to review orders. 
+                <li><a href="/">Staff</a></li> 
+            {% endif %} {% endcomment %}
         </ul>
     </div>
 </nav>
