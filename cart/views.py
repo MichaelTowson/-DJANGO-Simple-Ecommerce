@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 import json
 from django.conf import settings
 from django.contrib import messages
@@ -170,12 +170,12 @@ class ConfirmOrderView(generic.View):
             payment_method='PayPal'
         )
         order.ordered = True
-        order.ordered_date = datetime.date.today()
+        order.ordered_date = datetime.now()
         order.save()
         return JsonResponse({"data": "Success"})
 
 class OrderDetailView (LoginRequiredMixin, generic.DetailView):
-    template_name = 'order.html'
+    template_name = 'cart/order_detail.html'
     queryset = Order.objects.all()
     context_object_name = 'order'
     
