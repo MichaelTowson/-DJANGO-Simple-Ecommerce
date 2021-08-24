@@ -7,8 +7,9 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <h5 class="card-title">
-                    {{ order.reference_number }}
+                    ORDER SUMMARY
                 </h5>
+                <a href="{% url 'profile' %}">Return to profile</a>
                 <hr>
                 <h5 class="card-title">Order: # {{ order.reference_number }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Ordered on: {{ order.ordered_date }} </h6>
