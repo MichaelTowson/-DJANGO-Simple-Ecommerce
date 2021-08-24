@@ -11,7 +11,7 @@
                     <a href ="{% url 'account_logout' %}">
                         <small class="float-right">Logout</small></a>
                 </h5>
-                <hr />
+                <hr>
                 <h5 class="card-title">Your orders</h5>
                 <div class = "site-blocks-table">
                     <table class="table">
@@ -25,10 +25,10 @@
                         <tbody>
                             {% for order in orders %}
                                 <tr>
-                                    <td>#{{ order.reference_number }}</td>
-                                    <td>{{order.ordered_date}}</td>
-                                    <td>${{ordered.get_total }}</td>
-                                    <td>{% if order.paid %}Paid{% else %}Not paid{% endif %}</td>
+                                    <td><a href = "{% url 'cart:order-detail' order.pk %}">#{{ order.reference_number }}</td>
+                                    <td>{{ order.ordered_date }}</td>
+                                    <td>${{ order.get_total }}</td>
+                                    <td>{% if order.ordered %}Paid{% else %}Not paid{% endif %}</td>
                                 </tr>
                             {% empty %}
                                 <tr>
@@ -38,5 +38,8 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock content %}

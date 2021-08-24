@@ -1,10 +1,11 @@
-import datetime
+from datetime import datetime
 import json
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.views import generic
-from .models import Product, OrderItem, Address, Payment
+from .models import Product, OrderItem, Address, Payment, Order
 from .forms import AddToCartForm, AddressForm
 from .utils import get_or_set_order_session
 from django.shortcuts import get_object_or_404, reverse, redirect
@@ -169,6 +170,12 @@ class ConfirmOrderView(generic.View):
             payment_method='PayPal'
         )
         order.ordered = True
-        order.ordered_date = datetime.date.today()
+        order.ordered_date = datetime.now()
         order.save()
         return JsonResponse({"data": "Success"})
+
+class OrderDetailView (LoginRequiredMixin, generic.DetailView):
+    template_name = 'cart/order_detail.html'
+    queryset = Order.objects.all()
+    context_object_name = 'order'
+    

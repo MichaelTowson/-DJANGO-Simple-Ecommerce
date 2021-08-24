@@ -4,7 +4,6 @@ from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from django.shortcuts import reverse
 
-
 User = get_user_model()
 
 class Address(models.Model):
@@ -82,12 +81,12 @@ class Order(models.Model):
     user = models.ForeignKey(
         User, blank=True, null=True, on_delete=models.CASCADE) #blank and null need to be TRUE because a user won't always be logged in.
     start_date = models.DateTimeField(auto_now_add=True)
-    ordered_Date = models.DateTimeField(blank=True, null=True) #value gets set after order has been paid for.
+    ordered_date = models.DateTimeField(blank=True, null=True) #value gets set after order has been paid for.
     ordered = models.BooleanField(default=False)
     billing_address = models.ForeignKey(
         Address, related_name='billing_address', blank=True, null=True, on_delete=models.SET_NULL)
     shipping_address = models.ForeignKey(
-        Address, related_name='shiping_address', blank=True, null=True, on_delete=models.SET_NULL)
+        Address, related_name='shipping_address', blank=True, null=True, on_delete=models.SET_NULL)
     
     def __str__(self):
         return self.reference_number
